@@ -1,4 +1,5 @@
-﻿using Foundation;
+﻿using CoreML;
+using Foundation;
 using UIKit;
 
 namespace ImageClassifier.iOS
