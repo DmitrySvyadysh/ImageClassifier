@@ -3,6 +3,7 @@ using Plugin.Media.Abstractions;
 using Prism;
 using Prism.Ioc;
 using Prism.Navigation;
+using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 
 [assembly: XamlCompilation(XamlCompilationOptions.Compile)]
@@ -18,12 +19,14 @@ namespace ImageClassifier
         {
             containerRegistry.RegisterInstance(typeof(IMedia), CrossMedia.Current);
             containerRegistry.RegisterForNavigation<Views.HomePage>();
+            containerRegistry.RegisterForNavigation<Views.ResultPage>();
+            containerRegistry.RegisterForNavigation<NavigationPage>();
         }
 
         protected override void OnInitialized()
         {
             InitializeComponent();
-            Container.Resolve<INavigationService>().NavigateAsync($"/{nameof(Views.HomePage)}").Wait();
+            Container.Resolve<INavigationService>().NavigateAsync($"/{nameof(NavigationPage)}/{nameof(Views.HomePage)}").Wait();
         }
     }
 }

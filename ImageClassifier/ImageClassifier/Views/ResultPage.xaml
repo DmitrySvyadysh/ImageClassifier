@@ -1,0 +1,23 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="ImageClassifier.Views.ResultPage">
+    <StackLayout>
+        <ListView ItemsSource="{Binding LabelsConfidences}"
+                  VerticalOptions="StartAndExpand"
+                  Margin="30">
+            <ListView.ItemTemplate>
+                <DataTemplate>
+                    <ViewCell>
+                        <StackLayout Orientation="Horizontal">
+                            <Label Text="{Binding Name}"/>
+                            <Label Text="{Binding Confidence}"/>
+                        </StackLayout>
+                    </ViewCell>
+                </DataTemplate>
+            </ListView.ItemTemplate>
+        </ListView>
+        <Image Source="{Binding PhotoSource}"
+               VerticalOptions="End"/>
+    </StackLayout>
+</ContentPage>

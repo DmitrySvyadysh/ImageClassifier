@@ -8,6 +8,6 @@ namespace ImageClassifier.Services
     {
         IList<string> Labels { get; }
 
-        Task<LabelsConfidence> ProcessImage(MediaFile mediaFile);
+        Task<IList<LabelConfidence>> ProcessImage(MediaFile mediaFile);
     }
 }

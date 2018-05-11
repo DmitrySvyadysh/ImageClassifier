@@ -1,20 +1,21 @@
 ﻿using System.Threading.Tasks;
 using System.Windows.Input;
-using ImageClassifier.Services;
+using ImageClassifier.Views;
 using Plugin.Media.Abstractions;
 using Prism.Commands;
 using Prism.Mvvm;
+using Prism.Navigation;
 
 namespace ImageClassifier.ViewModels
 {
-    public class MainPageViewModel : BindableBase
+    public class HomePageViewModel : BindableBase
     {
-        private readonly IClassifierService classifierService;
+        private readonly INavigationService navigationService;
         private readonly IMedia media;
         
-        public MainPageViewModel(IClassifierService classifierService, IMedia media)
+        public HomePageViewModel(INavigationService navigationService, IMedia media)
         {
-            this.classifierService = classifierService;
+            this.navigationService = navigationService;
             this.media = media;
             TakePhotoCommand = new DelegateCommand(async () => await TakePhoto());
             PickPhotoCommand = new DelegateCommand(async () => await PickPhoto());
@@ -43,7 +44,8 @@ namespace ImageClassifier.ViewModels
                 return;
             }
 
-            var result = await classifierService.ProcessImage(photo);
+            var navigationParameters = new NavigationParameters{{ResultPageViewModel.ResultPagePhotoKey, photo}};
+            await navigationService.NavigateAsync(nameof(ResultPage), navigationParameters);
         }
     }
 }

@@ -33,13 +33,13 @@ namespace ImageClassifier.Droid.Services
 
         public IList<string> Labels => labels;
 
-        public async Task<LabelsConfidence> ProcessImage(MediaFile mediaFile)
+        public async Task<IList<LabelConfidence>> ProcessImage(MediaFile mediaFile)
         {
             var bitmap = await BitmapFactory.DecodeStreamAsync(mediaFile.GetStreamWithImageRotatedForExternalStorage());
             return RecognizeImage(bitmap);
         }
 
-        public LabelsConfidence RecognizeImage(Bitmap bitmap)
+        public List<LabelConfidence> RecognizeImage(Bitmap bitmap)
         {
             var outputNames = new[] {OutputName};
             var floatValues = GetBitmapPixels(bitmap);
@@ -49,9 +49,7 @@ namespace ImageClassifier.Droid.Services
             inferenceInterface.Run(outputNames);
             inferenceInterface.Fetch(OutputName, outputs);
 
-            var dictionary = Labels.Zip(outputs, (k, v) => new {k, v}).ToDictionary(x => x.k, x => x.v);
-
-            return new LabelsConfidence(dictionary);
+            return Labels.Zip(outputs, (k, v) => new LabelConfidence{Name = k, Confidence = v}).ToList();
         }
 
         private float[] GetBitmapPixels(Bitmap bitmap)

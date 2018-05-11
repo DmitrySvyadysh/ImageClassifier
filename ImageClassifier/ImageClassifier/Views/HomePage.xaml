@@ -2,11 +2,13 @@
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="ImageClassifier.Views.HomePage">
+    <StackLayout VerticalOptions="Center"
+                 Padding="40">
+        <Button Text="Take a photo"
+                Command="{Binding TakePhotoCommand}"/>
 
-    <Button Text="Take a photo"
-            Command="{Binding TakePhotoCommand}"/>
-
-    <Button Text="Pick photo from gallery"
-            Command="{Binding PickPhotoCommand}"/>
+        <Button Text="Pick a photo from gallery"
+                Command="{Binding PickPhotoCommand}"/>
+    </StackLayout>
 
 </ContentPage>
